@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic' rel='stylesheet'
+          type='text/css'>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  
+  <%= csrf_meta_tags %>
+  <!--[if lt IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+<body class="dashboard-page">
+
+  <!-- Start: Main -->
+  <div id="main">
+
+    <!-- Start: Header -->
+    <header class="navbar navbar-fixed-top bg-dark">
+      <div class="navbar-branding">
+        <a class="navbar-brand" href="/">
+          <b>Dashboard</b>
+        </a>
+        <span id="toggle_sidemenu_l" class="ad ad-lines"></span>
+      </div>
+      <ul class="nav navbar-nav navbar-left">
+        
+        <li class="hidden-xs">
+          <a class="request-fullscreen toggle-active" href="#">
+            <span class="glyphicon glyphicon-fullscreen"></span>
+          </a>
+        </li>
+      </ul>
+      <%if current_user.designation == "admin"%>
+      <form class="navbar-form navbar-left navbar-search square" role="search" action="/search" method="post">
+        <div class="input-group add-on">
+          <input type="text" class="form-control" name= "term" placeholder="Search ..." onfocus="this.placeholder=''" onblur="this.placeholder='Search...'" >
+          <div class="input-group-btn">
+            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+          </div>
+        </div>
+      </form>
+      <%end%>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown menu-merge">
+          <a href="#" class="dropdown-toggle fw600" data-toggle="dropdown" aria-expanded="false">
+            <span class="hidden-xs"><name><%=current_user.first_name%> <%=current_user.last_name%></name> </span>
+            <span class="fa fa-caret-down hidden-xs mr15"></span>
+          </a>
+          <ul class="dropdown-menu list-group dropdown-persist w250" role="menu" style="    padding-left: 50px;
+    width: 100px !important;">
+           <li><a href="javascript:void(0);"><label class="radio"><input type="radio" name="login-status" value="Away" id="Away"> Away</label></a>
+                    </li><li><a href="javascript:void(0);"><label class="radio"><input type="radio" name="login-status" value="Busy" id="Busy"> Busy</label></a>
+                    </li><li class="active"><a href="javascript:void(0);"><label class="radio"><input name="login-status" type="radio" id="Online" value="Online"> Online</label></a>
+                    </li><li><a href="javascript:void(0);"><label class="radio"><input type="radio" name="login-status" value="Offline" id="Offline"> Offline</label></a></li>
+             
+          
+            
+          </ul>
+        </li>
+        <li class="hidden-xs">
+          <a href="<%=destroy_user_session_path%>" data-method="delete" class="btn btn-primary btn-sm btn-bordered">
+                <span class="fa fa-power-off pr5"></span> Logout </a>
+          
+        
+      </ul>
+    </header>
+    <!-- End: Header -->
+
+    <!-- Start: Sidebar -->
+    <aside id="sidebar_left" class="nano nano-light affix">
+
+      <!-- Start: Sidebar Left Content -->
+      <div class="sidebar-left-content nano-content">
+
+        <!-- Start: Sidebar Header -->
+        <header class="sidebar-header">
+
+          <!-- Sidebar Widget - Author -->
+          <div class="sidebar-widget author-widget">
+            <div class="media">
+              
+              <div class="media-body">
+               
+                <div class="media-author"><%=current_user.first_name%> <%=current_user.last_name%></div>
+              </div>
+            </div>
+          </div>
+
+          
+
+        </header>
+        <!-- End: Sidebar Header -->
+
+        <!-- Start: Sidebar Menu -->
+        <ul class="nav sidebar-menu">
+          <li class="sidebar-label pt30">Menu</li>
+        
+          <li class="active">
+            <a class="accordion-toggle menu-open" href="/">
+              <span class="fa fa-dashboard"></span>
+              <span class="sidebar-title">Order</span>
+            </a>
+          </li>
+        <%if current_user.designation != "admin"%>
+          <li class="active">
+            <a class="accordion-toggle menu-open" href="/track_order">
+              <span class="fa fa-dashboard"></span>
+              <span class="sidebar-title">Track old Order</span>
+            </a>
+          </li>
+        <%end%>
+          
+          
+        
+        
+        </ul>
+         <div class="sidebar-toggle-mini">
+	        <a href="#">
+	          <span class="fa fa-sign-out"></span>
+	        </a>
+	      </div>
+        <!-- End: Sidebar Menu -->
+
+      </div>
+      <!-- End: Sidebar Left Content -->
+
+    </aside>
+    <!-- End: Sidebar Left -->
+
+    <!-- Start: Content-Wrapper -->
+   
+<%= yield %>
+</div>
+       
+          <!-- Admin-panels -->
+      
+        <!-- end: .tray-right -->
+
+      </section>
+      <!-- End: Content -->
+
+      <!-- Begin: Page Footer -->
+      <footer id="content-footer" class="affix">
+        <div class="row">
+          <div class="col-md-6">
+            <span class="footer-legal">© 2015 All rights reserved.</span>
+          </div>
+          
+        </div>
+      </footer>
+      <!-- End: Page Footer -->
+
+    </section>
+    <!-- End: Content-Wrapper -->
+
+    <!-- Start: Right Sidebar -->
+    
+
+  </div>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+</body>
+</html>
+<script>
+  var current_login_status = "<%=current_user.login_status%>"
+  jQuery(document).ready(function() {
+  "use strict";
+    
+$('input[type=radio][name=login-status][id='+current_login_status+']').prop('checked', true);
+    // Init Theme Core      
+    Core.init();
+    Demo.init();
+    $(".accordion-toggle").click(function(){
+      window.location = $(this).attr("href")
+    })
+    $(".dropdown-toggle").dropdown();
+    
+$('.user-login-status').change(function() {
+      var dis = $(this)
+      $.ajax({
+            type: "POST",
+            url: "/update_login_status",
+            data: {id:dis.attr("id"), status: dis.val()},
+            success: function(){
+              
+            }
+      });
+      });
+
+      $('input[type=radio][name=login-status]').change(function() {
+        var value = $(this).val() 
+        $.ajax({
+            type: "POST",
+            url: "/update_login_status",
+            data: {id:<%=current_user.id%>, status: value},
+            success: function(){
+              $("body").click()
+            }
+      });
+        
+    });
+})
+</script>

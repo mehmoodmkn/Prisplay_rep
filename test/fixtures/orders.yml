@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  billboard_location: MyString
+  time: MyString
+  duration: MyString
+  file: MyString
+  user: 
+
+two:
+  billboard_location: MyString
+  time: MyString
+  duration: MyString
+  file: MyString
+  user: 

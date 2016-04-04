@@ -1,0 +1,113 @@
+<section id="content_wrapper">
+      <header id="topbar" class="alt">
+        <div class="topbar-left">
+          <ol class="breadcrumb">
+            <li class="crumb-icon">
+              <a href="dashboard1.html">
+                <span class="fa fa-home"></span>
+              </a>
+            </li>
+            <li class="crumb-active">
+              <a href="/create-task">Edit Payment Information</a>
+            </li>
+            <li class="crumb-link">
+              <a href="/">Home</a>
+            </li>
+            <li class="crumb-trail">Edit Payment Information</li>
+          </ol>
+        </div>
+        </header>
+
+      <section id="content" class="table-layout animated fadeIn">
+
+        <!-- begin: .tray-center -->
+        <div class="tray tray-center">
+          
+          
+           <div class="admin-form theme-primary" style="    width: 50%;
+    margin-left: 25%;">
+
+                      <h5 class="pln"> Edit Payment Information</h5>
+
+                      <h6 class="mb15"> Bank Branch Code</h6>
+                      <div class="section mb20">
+                          <label for="bank_branch_code" class="field prepend-icon">
+                              <input type="text" name="bank_branch_code" id="bank_branch_code" class="gui-input" value="<%=@pi.bank_branch_code rescue nil%>"
+                                     placeholder="Bank Branch Code">
+                              <label for="bank_branch_code" class="field-icon">
+                                  <i class="fa fa-tag"></i>
+                              </label>
+                          </label>
+                      </div>
+                      <h6 class="mb15"> Bank Name</h6>
+                      <div class="section mb20">
+                          <label for="bank_nam" class="field prepend-icon">
+                              <input type="text" name="bank_nam" id="bank_nam" class="gui-input" value="<%=@pi.bank_nam rescue nil%>"
+                                     placeholder="Bank Name">
+                              <label for="bank_nam" class="field-icon">
+                                  <i class="fa fa-tag"></i>
+                              </label>
+                          </label>
+                      </div>
+                      <h6 class="mb15"> Bank Address</h6>
+                      <div class="section mb20">
+                          <label for="bank_address" class="field prepend-icon">
+                              <input type="text" name="bank_address" id="bank_address" class="gui-input" value="<%=@pi.bank_address rescue nil%>"
+                                     placeholder="Bank Address">
+                              <label for="bank_address" class="field-icon">
+                                  <i class="fa fa-tag"></i>
+                              </label>
+                          </label>
+                      </div>
+                      <h6 class="mb15"> Swift Code</h6>
+                      <div class="section mb20">
+                          <label for="swift_code" class="field prepend-icon">
+                              <input type="text" name="swift_code" id="swift_code" class="gui-input" value="<%=@pi.swift_code rescue nil%>"
+                                     placeholder="Swift Code">
+                              <label for="swift_code" class="field-icon">
+                                  <i class="fa fa-tag"></i>
+                              </label>
+                          </label>
+                      </div>
+                      <h6 class="mb15"> IBAN</h6>
+                      <div class="section mb20">
+                          <label for="iban" class="field prepend-icon">
+                              <input type="text" name="iban" id="iban" class="gui-input" value="<%=@pi.iban rescue nil%>"
+                                     placeholder="IBAN">
+                              <label for="iban" class="field-icon">
+                                  <i class="fa fa-tag"></i>
+                              </label>
+                          </label>
+                      </div>
+                      <h6 class="mb15"> Paypal Email Address</h6>
+                      <div class="section mb20">
+                          <label for="paypal_email_address" class="field prepend-icon">
+                              <input type="text" name="paypal_email_address" id="paypal_email_address" class="gui-input" value="<%=@pi.paypal_email_address rescue nil%>"
+                                     placeholder="Paypal Email Address">
+                              <label for="paypal_email_address" class="field-icon">
+                                  <i class="fa fa-tag"></i>
+                              </label>
+                          </label>
+                      </div>
+                      <button class="btn btn-primary pull-center ph30" type="button" onclick=save_task()>Update</button>
+                      <span style="margin-left: 30px" id="response"></span style="margin-left: 30px">
+           </div>
+<script>
+  function save_task() {
+    var data = {uid: '<%=@uid%>'}
+    
+    $(".gui-input").each(function(i, obj) {
+      data[obj.name] = obj.value
+      obj.value = ""
+    });
+    $.ajax({
+  type: "POST",
+  url: "/save_payment_information",
+  data: data,
+  success: function(){
+    $("#response").html("Successfully Created")
+  }
+});
+  }
+  
+</script>

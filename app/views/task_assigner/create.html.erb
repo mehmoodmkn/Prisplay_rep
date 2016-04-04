@@ -1,0 +1,93 @@
+<section id="content_wrapper">
+      <header id="topbar" class="alt">
+        <div class="topbar-left">
+          <ol class="breadcrumb">
+            <li class="crumb-icon">
+              <a href="dashboard1.html">
+                <span class="fa fa-home"></span>
+              </a>
+            </li>
+            <li class="crumb-active">
+              <a href="/create-task">Create Task</a>
+            </li>
+            <li class="crumb-link">
+              <a href="/">Home</a>
+            </li>
+            <li class="crumb-trail">Create Task</li>
+          </ol>
+        </div>
+        </header>
+
+      <section id="content" class="table-layout animated fadeIn">
+
+        <!-- begin: .tray-center -->
+        <div class="tray tray-center">
+          
+          
+           <div class="admin-form theme-primary" style="    width: 50%;
+    margin-left: 25%;">
+
+                      <h5 class="pln"> Create Task</h5>
+
+                      <h6 class="mb15"> Name</h6>
+                      <div class="section mb20">
+                          <label for="name" class="field prepend-icon">
+                              <input type="text" name="name" id="name" class="gui-input"
+                                     placeholder="Name">
+                              <label for="name" class="field-icon">
+                                  <i class="fa fa-tag"></i>
+                              </label>
+                          </label>
+                      </div>
+                      <h6 class="mb15"> Duration</h6>
+                      <div class="section mb20">
+                          <label for="duration" class="field prepend-icon">
+                              <input type="text" name="duration" id="duration" class="gui-input"
+                                     placeholder="Duration">
+                              <label for="duration" class="field-icon">
+                                  <i class="fa fa-tag"></i>
+                              </label>
+                          </label>
+                      </div>
+                      <h6 class="mb15"> Starting Date</h6>
+                      <div class="section mb20">
+                          <label for="starting_date" class="field prepend-icon">
+                              <input type="text" name="starting_date" id="starting_date" class="gui-input"
+                                     placeholder="Starting Date">
+                              <label for="starting_date" class="field-icon">
+                                  <i class="fa fa-tag"></i>
+                              </label>
+                          </label>
+                      </div>
+                      <h6 class="mb15"> Ending Date</h6>
+                      <div class="section mb20">
+                          <label for="ending_date" class="field prepend-icon">
+                              <input type="text" name="ending_date" id="ending_date" class="gui-input"
+                                     placeholder="Ending Date">
+                              <label for="ending_date" class="field-icon">
+                                  <i class="fa fa-tag"></i>
+                              </label>
+                          </label>
+                      </div>
+                      <button class="btn btn-primary pull-center ph30" type="button" onclick=save_task()>Create</button>
+                      <span style="margin-left: 30px" id="response"></span style="margin-left: 30px">
+           </div>
+<script>
+  function save_task() {
+    var data = {}
+    
+    $(".gui-input").each(function(i, obj) {
+      data[obj.name] = obj.value
+      obj.value = ""
+    });
+    $.ajax({
+  type: "POST",
+  url: "/save-task",
+  data: data,
+  success: function(){
+    $("#response").html("Successfully Created")
+  }
+});
+  }
+  
+</script>

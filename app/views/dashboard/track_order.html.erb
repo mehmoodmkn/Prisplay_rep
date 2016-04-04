@@ -1,0 +1,54 @@
+<section id="content_wrapper">
+      <header id="topbar" class="alt">
+        <div class="topbar-left">
+          <ol class="breadcrumb">
+            <li class="crumb-icon">
+              <a href="dashboard1.html">
+                <span class="fa fa-home"></span>
+              </a>
+            </li>
+            <li class="crumb-active">
+              <a href="/track_order">Track Orders</a>
+            </li>
+            <li class="crumb-link">
+              <a href="/">Home</a>
+            </li>
+            <li class="crumb-trail">Track Orders</li>
+          </ol>
+        </div>
+        </header>
+
+      <section id="content" class="table-layout animated fadeIn">
+
+        <!-- begin: .tray-center -->
+        <div class="tray tray-center">
+         <div class="table-responsive">
+            <table class="table admin-form theme-warning tc-checkbox-1 fs13">
+            <thead>
+            <tr class="bg-light">
+                <th class="text-center">Order #</th>
+                <th class="text-center">Billboard Location</th>
+                <th class="text-center">Time</th>
+                <th class="text-center">Duration</th>
+                <th class="text-center">File</th>
+                <th class="text-center">Status</th>
+                
+                
+            </tr>
+            </thead>
+            <tbody>
+              <%@orders.each do |order|%>
+                  <tr><td class="text-center"><%=order.id%></td>
+                        <td class="text-center"><%=order.billboard_location%></td>
+                  <td class="text-center"><%=order.time%></td>
+                  <td class="text-center"><%=order.duration%></td>
+                  <td class="text-center"><a href="<%=order.file.url%>" download><i class="fa fa-file"></i></a></td>
+                  <td class="text-center"><%=order.approved == true ? "Approved" : "Pending"%></td>
+                  
+            
+                  </tr>
+            <%end%>
+            </tbody>
+            </table>
+          </div>
+

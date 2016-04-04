@@ -1,0 +1,110 @@
+
+
+
+  <!-- Start: Main -->
+  <div id="main" class="animated fadeIn">
+
+    <!-- Start: Content-Wrapper -->
+    <section id="content_wrapper">
+
+      <!-- begin canvas animation bg -->
+      <div id="canvas-wrapper">
+        <canvas id="demo-canvas"></canvas>
+      </div>
+
+      <!-- Begin: Content -->
+      <section id="content">
+
+        <!-- Login -->
+        <div class="admin-form theme-primary mw320" id="login">
+          <!--<div class="text-center mb20"><img src="assets/img/logo_login_form.png" class="img-responsive" alt="Logo"/></div>-->
+          <div class="panel mw320">
+
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+              <div class="panel-body pn mv10">
+
+                <div class="section">
+                  <label for="email" class="field prepend-icon">
+                    <input type="text" name="user[email]" id="email" class="gui-input"
+                           placeholder="Email">
+                    <label for="email" class="field-icon">
+                      <i class="fa fa-user"></i>
+                    </label>
+                  </label>
+                </div>
+                <!-- end section -->
+
+                <div class="section">
+                  <label for="password" class="field prepend-icon">
+                    <input type="password" name="user[password]" id="password" class="gui-input"
+                           placeholder="Password">
+                    <label for="password" class="field-icon">
+                      <i class="fa fa-lock"></i>
+                    </label>
+                  </label>
+                </div>
+                <!-- end section -->
+
+                <div class="section">
+                  <div class="bs-component pull-left pt5">
+                    <div class="radio-custom radio-primary mb5 lh25">
+                      <input type="radio" id="remember_me" name="remember_me">
+                      <label for="remember_me">Remember me</label>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-bordered btn-primary pull-right">Log in</button>
+                </div>
+                
+                <!-- end section -->
+
+              </div>
+              <!-- end .form-body section -->
+            <%end%>
+            
+            
+            
+            <a id="sign-up" href="/user/sign-up">Sign Up</a>
+          </div>
+          
+          <!-- end .panel-->
+        </div>
+        <!-- end: .admin-form -->
+
+      </section>
+      <!-- End: Content -->
+
+    </section>
+    <!-- End: Content-Wrapper -->
+
+  </div>
+  
+  <!-- Page Javascript -->
+  <script type="text/javascript">
+    if(window.location.pathname.indexOf('admin') != -1){
+      $("#sign-up").hide()
+    }
+  jQuery(document).ready(function() {
+
+    "use strict";
+
+    // Init Theme Core      
+    Core.init();
+    
+    
+
+    // Init CanvasBG and pass target starting location
+    CanvasBG.init({
+      Loc: {
+        x: window.innerWidth / 5,
+        y: window.innerHeight / 10
+      }
+    });
+
+  });
+  </script>
+
+  <!-- END: PAGE SCRIPTS -->
+
+</body>
+
+</html>

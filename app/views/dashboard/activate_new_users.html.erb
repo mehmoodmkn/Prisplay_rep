@@ -1,0 +1,76 @@
+<section id="content_wrapper">
+      <header id="topbar" class="alt">
+        <div class="topbar-left">
+          <ol class="breadcrumb">
+            <li class="crumb-icon">
+              <a href="dashboard1.html">
+                <span class="fa fa-home"></span>
+              </a>
+            </li>
+            <li class="crumb-active">
+              <a href="/employees">Employees</a>
+            </li>
+            <li class="crumb-link">
+              <a href="/">Home</a>
+            </li>
+            <li class="crumb-trail">Employees</li>
+          </ol>
+        </div>
+        </header>
+
+      <section id="content" class="table-layout animated fadeIn">
+
+        <!-- begin: .tray-center -->
+        <div class="tray tray-center">
+<div class="table-responsive">
+            <table class="table admin-form theme-warning tc-checkbox-1 fs13">
+            <thead>
+            <tr class="bg-light">
+                <th class="text-center">First Name</th>
+                <th class="text-center">Last Name</th>
+                <th class="text-center">Gender</th>
+                <th class="text-center">DOB</th>
+                <th class="text-center">NIC</th>
+                <th class="text-center">SSN</th>
+                <th class="text-center">Email</th>
+                <th class="text-center">Phone</th>
+                <th class="text-center">Address</th>
+                <th class="text-center">City</th>
+                <th class="text-center">Country</th>
+                <th class="text-center">Activate</th>
+                
+            </tr>
+            </thead>
+            <tbody>
+              <%@users.each do |user|%>
+            <tr><td class="text-center"><%=user.first_name%></td>
+            <td class="text-center"><%=user.last_name%></td>
+            <td class="text-center"><%=user.gender%></td>
+            <td class="text-center"><%=user.dob%></td>
+            <td class="text-center"><%=user.nic%></td>
+            <td class="text-center"><%=user.ssn%></td>
+            <td class="text-center"><%=user.email%></td>
+            <td class="text-center"><%=user.phone%></td>
+            <td class="text-center"><%=user.address%></td>
+            <td class="text-center"><%=user.city%></td>
+            <td class="text-center"><%=user.country%></td>
+            <td class="text-center"><button class="btn" id='update_role' onclick=update_role('<%=user.id%>')>Activate</button></td>
+            </tr>
+            <%end%>
+            </tbody>
+            </table>
+          </div>
+
+<script>
+      function update_role(id) {
+        $.ajax({
+  type: "POST",
+  url: "/activate_user",
+  data: {id:id},
+  success: function(){
+    window.location = window.location.href
+  }
+});
+      }
+</script>
+ 
