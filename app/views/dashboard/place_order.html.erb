@@ -1,3 +1,77 @@
+<script
+src="http://maps.googleapis.com/maps/api/js">
+</script>
+<link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script>
+ var unavailableDates = <%= raw (Order.where(:approved => nil).all.collect(&:time).compact)%>;
+
+   
+
+function initialize() {
+  var mapProp = {
+    center:new google.maps.LatLng(33.735693, 73.078757),
+    zoom:11,
+    mapTypeId:google.maps.MapTypeId.ROADMAP
+  };
+
+  var map=new google.maps.Map(document.getElementById("googleMap"), mapProp);
+  var marker = new google.maps.Marker({
+    position: {lat: 33.735693, lng: 73.078757},
+    map: map
+  });
+var marker1 = new google.maps.Marker({
+    position: {lat: 33.730314, lng: 73.077116},
+    map: map
+  });
+var marker2 = new google.maps.Marker({
+    position: {lat: 33.714689, lng: 73.066068},
+    map: map
+  });
+var marker3 = new google.maps.Marker({
+    position: {lat: 33.651070, lng: 73.155958},
+    map: map
+  });
+
+
+
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+
+$(function() {
+
+$('#ad-time').datepicker({
+  dateFormat: 'dd/mm/yy',
+    beforeShowDay: function(date){
+        var string = jQuery.datepicker.formatDate('dd/mm/yy', date);
+        console.log(string)
+        return [ unavailableDates.indexOf(string) == -1 ]
+    }
+});
+
+  // $(".date").datepicker({
+  //   dateFormat: 'dd/mm/yy',
+  //   beforeShowDay: function(date){
+  //       var string = jQuery.datepicker.formatDate('dd-mm-yy', date);
+  //       return [ unavailableDates.indexOf(string) == -1 ]
+  //   },
+  //   showOn: "button",
+  //   buttonImage: "https://htmlcssphptutorial.files.wordpress.com/2015/09/b_calendar.png",
+  //   buttonImageOnly: true,
+  //   buttonText: "Select date",
+  //   onSelect: function(dateText) {
+  //     $(this).prev().val(dateText);
+  //   }
+  // });
+  // $('input + .date').prev().on('change', function() {
+  //   var dateStr = this.value.split(/[\/-]/);
+  //    $(this).next().datepicker("setDate", new Date(dateStr[2], dateStr[1] - 1, dateStr[0]) );
+  // })
+});
+
+
+</script>
 <section id="content_wrapper">
       <header id="topbar" class="alt">
         <div class="topbar-left">
@@ -27,34 +101,38 @@
            <div class="admin-form theme-primary" style="    width: 50%;
     margin-left: 25%;">
             <form action="/save_order" method="POST" enctype="multipart/form-data">
-                      <h5 class="pln"> Place Order</h5>
+                      <h5 class="pln"> Place Order For Ads Display</h5>
+                        
+                        <div id="googleMap" style="width:500px;height:380px;"></div>
 
+                          <BR>
                       <h6 class="mb15"> Billboard Location</h6>
                       <div class="section mb20">
                           <label for="order-location" class="field prepend-icon">
-                              <input type="text" name="order[billboard_location]" id="order-location" class="gui-input"
-                                     placeholder="Billboard Location">
+<!--                               <input type="text" name="order[billboard_location]" id="order-location" class="gui-input"
+                                     placeholder="Billboard Location"> -->
+                      <select name="order[billboard_location]" id="order-location"
+                      
+                      placeholder="Billboard Location">
+                      <option value="Kohsar Market F-6">Kohsar Market F-6</option>
+                      <option value="Super Market F-6">Super Market F-6</option>
+                      <option value="Blue Area">Blue Area</option>
+                      <option value="Comsats Islamabad">Comsats Islamabad</option>
+                      </select>
                               <label for="order-location" class="field-icon">
                                   <i class="fa fa-tag"></i>
                               </label>
                           </label>
                       </div>
-                      <h6 class="mb15"> Ad's Time</h6>
+                      <h6 class="mb15"> Ad's Date</h6>
+
                       <div class="section mb20">
                           <label for="ad-time" class="field prepend-icon">
-                              <input type="text" name="order[time]" id="ad-time" class="gui-input"
-                                     placeholder="Ad's Time">
+<!--                               <input type="text" name="order[time]" id="ad-time" class="gui-input"
+                                     placeholder="Ad's Time" > -->
+                                     <input placeholder="Ad's Time" name="order[time]" id="ad-time" class="gui-input"/>
+                                     <input type="text" name="date"  class="date" readonly />
                               <label for="ad-time" class="field-icon">
-                                  <i class="fa fa-tag"></i>
-                              </label>
-                          </label>
-                      </div>
-                      <h6 class="mb15"> Ad's Duration</h6>
-                      <div class="section mb20">
-                          <label for="ad-duration" class="field prepend-icon">
-                              <input type="text" name="order[duration]" id="ad-duration" class="gui-input"
-                                     placeholder="Ad's Duration">
-                              <label for="ad-duration" class="field-icon">
                                   <i class="fa fa-tag"></i>
                               </label>
                           </label>
@@ -70,10 +148,15 @@
                           </label>
                       </div>
                       <input type="hidden" name="order[user_id]" class="gui-input" value="<%=@user.id%>">
-                      <button class="btn btn-primary pull-center ph30" type="submit">Place Order</button>
+                      <button class="btn btn-primary pull-center ph30" type="submit" >Place Order</button>
                       <span style="margin-left: 30px" id="response"></span style="margin-left: 30px">
             </form>
+            
+
+ 
            </div>
+           <div align="center"><a href="/printing">Go To Printing</a></div>
+
 <script>
 //  function save_task() {
 //    var data = {}
@@ -91,5 +174,27 @@
 //  }
 //});
 //  }
+var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
+var mapOptions = {
+  zoom: 4,
+  center: myLatlng
+}
+var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+var marker = new google.maps.Marker({
+    position: myLatlng,
+    title:"Hello World!"
+});
+
+// To add the marker to the map, call setMap();
+marker.setMap(map);
   
+
 </script>
+<style type="text/css">
+.date {
+  display: none;
+}
+
+</style>
+

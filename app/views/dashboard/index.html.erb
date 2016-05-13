@@ -29,11 +29,12 @@
             <tr class="bg-light">
               <th class="text-center">Order #</th>
                 <th class="text-center">Billboard Location</th>
-                <th class="text-center">Time</th>
-                <th class="text-center">Duration</th>
+                <th class="text-center">Date</th>
                 <th class="text-center">File</th>
-                <th class="text-center">Status</th>
-                
+                <th class="text-center">Approval Status</th>
+                <th class="text-center">Processing Status</th>
+                <th class="text-center">Ready Status</th>
+                <th class="text-center">Client's ID</th>
                 
             </tr>
             </thead>
@@ -42,7 +43,6 @@
                   <tr><td class="text-center"><%=order.id%></td>
                     <td class="text-center"><%=order.billboard_location%></td>
                   <td class="text-center"><%=order.time%></td>
-                  <td class="text-center"><%=order.duration%></td>
                   <td class="text-center"><a href="<%=order.file.url%>" download><i class="fa fa-file"></i></a></td>
                   <td class="text-center"><%if order.approved != true%>
                       <button class="btn" id='update_order_status' onclick=update_order_status('<%=order.id%>')>Update Status to Approved</button>
@@ -50,11 +50,27 @@
                       Approved
                       <%end%>
                     </td>
+                  <td class="text-center"><%if order.approved != true%>
+                  
+                      <button class="btn" id='update_order_status' onclick=update_order_status('<%=order.id%>')>Update to Processing</button>
+                      <%else%>
+                      Processing
+                      <%end%>
+                  </td>
+                  <td class="text-center"><%if order.approved != true%>
+                  
+                      <button class="btn" id='update_order_status' onclick=update_order_status('<%=order.id%>')>Update to Ready</button>
+                      <%else%>
+                      Ready
+                      <%end%>
+                  </td>
+                  <td class="text-center"><%=order.user_id%></td>
                   </tr>
             <%end%>
             </tbody>
             </table>
 </div>
+<a href="/"><button class="btn btn-primary pull-center ph30" type="submit" >Send To Raspberry Pie</button></a>
 
 <script>
   function update_order_status(id) {

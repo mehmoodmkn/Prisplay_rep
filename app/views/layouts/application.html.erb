@@ -100,18 +100,25 @@
         <!-- Start: Sidebar Menu -->
         <ul class="nav sidebar-menu">
           <li class="sidebar-label pt30">Menu</li>
-        
+        <%if current_user.designation != "admin"%>
           <li class="active">
-            <a class="accordion-toggle menu-open" href="/">
+            <a class="accordion-toggle menu-open" href="/place_order">
               <span class="fa fa-dashboard"></span>
               <span class="sidebar-title">Order</span>
             </a>
           </li>
-        <%if current_user.designation != "admin"%>
+        
           <li class="active">
             <a class="accordion-toggle menu-open" href="/track_order">
               <span class="fa fa-dashboard"></span>
               <span class="sidebar-title">Track old Order</span>
+            </a>
+          </li>
+          <%else%>
+            <li class="active">
+            <a class="accordion-toggle menu-open" href="/">
+            <span class="fa fa-dashboard"></span>
+            <span class="sidebar-title">Order</span>
             </a>
           </li>
         <%end%>

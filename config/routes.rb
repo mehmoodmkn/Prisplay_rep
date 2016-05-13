@@ -15,10 +15,15 @@ Rails.application.routes.draw do
   root 'dashboard#index'
   post "search" =>'dashboard#search'
   post "update_login_status" =>'dashboard#update_login_status'
+  get "payment" => 'payment#index'
+  get "main" => 'dashboard#index'
+  get "contactus" => 'contactus#index'
+  get "/user/sign-in" => 'devise/sessions#new'
   
   get 'employees' => 'dashboard#show_users'
   get 'show-payroll' => 'dashboard#show_payroll'
   get 'place_order' => 'dashboard#place_order'
+  get 'printing' => 'dashboard#printing'
   post 'save_order' => 'dashboard#save_order'
   post "update_order_status" => 'dashboard#update_order_status'
   get 'track_order' => "dashboard#track_order"
@@ -37,6 +42,8 @@ Rails.application.routes.draw do
   post 'assign_task' => 'task_assigner#assign_task'
   
   get 'tasks' => 'task_assigner#show'
+
+  post 'api_login' => 'dashboard#api_login'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

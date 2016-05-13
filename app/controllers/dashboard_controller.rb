@@ -1,17 +1,21 @@
 class DashboardController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:api_login]
   
   def index
     if current_user.designation != "admin"
       @user = current_user
-      render :template => "/dashboard/place_order"
+      render :template => "/dashboard/main"
     else
       @orders = Order.all
     end
   end
+
+  def printing
+      @user = current_user
+  end
   
   def place_order
-    
+      @user = current_user
   end
   
   def update_order_status
@@ -37,11 +41,31 @@ class DashboardController < ApplicationController
     render :template => "/dashboard/index"
   end
   
+def api_login
+    if params[:email] && params[:password]
+      user = User.find_by_email(params[:email])
+      if user
+        if user.valid_password?(params[:password])
+          render :json => {"status" => "200" , "token" => user.authentication_token}
+        else
+          render :json => {"status" => "Invalid Password"}
+        end
+      else
+        render :json => {"status" => "Invalid Email"}
+      end
+    else
+      render :json => {"status" => "Missing params"}
+    end
+    
+  end
+
   private
 
   def save_order_params
-    params["order"].permit(:billboard_location, :time, :duration, :file, :user_id)
+    params["order"].permit(:billboard_location, :time, :file, :user_id)
   end
+
+  
   #def update_login_status
   #  User.find(params["id"]).update_attributes :login_status => params["status"]
   #  render :json => {"status" => "200"}

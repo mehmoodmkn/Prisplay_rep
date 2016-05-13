@@ -1,0 +1,48 @@
+    <section id="content_wrapper">
+      <header id="topbar" class="alt">
+        <div class="topbar-left">
+          <ol class="breadcrumb">
+            <li class="crumb-icon">
+              <a href="dashboard1.html">
+                <span class="fa fa-home"></span>
+              </a>
+            </li>
+            <li class="crumb-active">
+              <a href="/create-task">Placing Order for <%=@user.first_name%> <%=@user.last_name%></a>
+            </li>
+            <li class="crumb-link">
+              <a href="/">Home</a>
+            </li>
+            <li class="crumb-trail">Place Order For Printing</li>
+          </ol>
+        </div>
+        </header>
+
+      <section id="content" class="table-layout animated fadeIn">
+
+        <!-- begin: .tray-center -->
+        <div class="tray tray-center">
+          
+          
+           <div class="admin-form theme-primary" style="    width: 50%;
+    margin-left: 25%;">
+                      <form action="/save_order" method="POST" enctype="multipart/form-data">
+                      <h5 class="pln"> Place Order For Printing</h5>
+                      <h6 class="mb15">Upload File</h6>
+                      <div class="section mb20">
+                          <label for="ad-file" class="field prepend-icon">
+                              <input type="file" name="order[file]" id="ad-file" class="gui-input"
+                                     placeholder="File">
+                              <label for="ad-file" class="field-icon">
+                                  <i class="fa fa-file"></i>
+                              </label>
+                          </label>
+                      </div>
+                      <input type="hidden" name="order[user_id]" class="gui-input" value="<%=@user.id%>">
+                      <textarea style="margin: 0px; width: 572px; height: 102px;"></textarea>
+                      <br>
+                      <button class="btn btn-primary pull-center ph30" type="submit" >Place Order</button>
+                      <span style="margin-left: 30px" id="response"></span style="margin-left: 30px">
+                      </form>
+           </div>
+           <div align="center"><a href="/place_order">Go To Ads Display</a></div>
